@@ -1,7 +1,7 @@
 name: Run wakatime-to-toggl everyday
 on:
     schedule:
-        - cron: 30 2 * * * # Everyday at 02:30 AM UTC. You can change it according to your timezone
+        [{cron: "0 * * * *"}] # Everyday at 02:30 AM UTC. You can change it according to your timezone
 jobs:
     run:
         runs-on: ubuntu-latest
