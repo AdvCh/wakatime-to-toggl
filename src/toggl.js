@@ -83,7 +83,7 @@ module.exports = {
                 'time_entries',
                 {
                     time_entry: {
-                        description: 'Development',
+                        description: 'Coding',
                         duration: duration,
                         start: start,
                         pid: projectId,
