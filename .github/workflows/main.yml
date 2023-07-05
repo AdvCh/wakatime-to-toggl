@@ -1,7 +1,7 @@
 name: Run wakatime-to-toggl everyday
 on:
     schedule:
-        [{cron: "0 */3 * * *"}] # Everyday at 02:30 AM UTC. You can change it according to your timezone
+        [{cron: "0 */1 * * *"}] # Everyday at 02:30 AM UTC. You can change it according to your timezone
     workflow_dispatch:
     push: {branches: ["master", "main"]}
 jobs:
