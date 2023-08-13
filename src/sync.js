@@ -74,7 +74,7 @@ function alreadyExists(projectId, start, duration, entries) {
         entries.find(
             (entry) =>
                 entry.start.substr(0, 19) === start.substr(0, 19) &&
-                entry.duration === duration &&
+                // entry.duration === duration &&
                 entry.pid === projectId
         )
     );
