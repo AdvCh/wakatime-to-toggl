@@ -11,7 +11,7 @@ jobs:
             - uses: actions/setup-node@v1
               with:
                   node-version: 12
-            - run: 
+            - run: |
                 npx wakatime-to-toggl -w "$WAKATIME_API_KEY" -t "$TOGGL_API_KEY" -d 0
                 npx wakatime-to-toggl -w "$WAKATIME_API_KEY" -t "$TOGGL_API_KEY" -d 1
               env:
