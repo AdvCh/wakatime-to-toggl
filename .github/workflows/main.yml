@@ -12,8 +12,8 @@ jobs:
               with:
                   node-version: 12
             - run: |
-                npx wakatime-to-toggl -w "$WAKATIME_API_KEY" -t "$TOGGL_API_KEY" -d 0
-                npx wakatime-to-toggl -w "$WAKATIME_API_KEY" -t "$TOGGL_API_KEY" -d 1
+                npx https://github.com/Chenheg/wakatime-to-toggl -w "$WAKATIME_API_KEY" -t "$TOGGL_API_KEY" -d 0
+                npx https://github.com/Chenheg/wakatime-to-toggl -w "$WAKATIME_API_KEY" -t "$TOGGL_API_KEY" -d 1
               env:
                   TOGGL_API_KEY: '${{ secrets.TOGGL_API_KEY }}'
                   WAKATIME_API_KEY: '${{ secrets.WAKATIME_API_KEY }}'
