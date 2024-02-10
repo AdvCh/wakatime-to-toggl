@@ -26,7 +26,7 @@ module.exports = {
                 },
             })
 
-            .then((resp) => resp.data.data)
+            .then((resp) => resp.data)
             .then((resp) => {
                 const projects = resp.projects ? resp.projects.filter((p) => !p.server_deleted_at) : [];
                 const timeEntries = resp.time_entries || [];
@@ -34,7 +34,7 @@ module.exports = {
                     `Found ${projects.length} Toggl projects and ${timeEntries.length} recent time entries.`
                 );
                 return {
-                    workspaceId: resp.default_wid,
+                    workspaceId: resp.default_workspace_id,
                     projects: projects,
                     entries: timeEntries,
                 };
@@ -51,12 +51,10 @@ module.exports = {
         const spinner = ora(`Creating project "${name}" in Toggl...`);
         return instance
             .post(
-                'projects',
+                `workspaces/${workspaceId}/projects`,
                 {
-                    project: {
-                        name: name,
-                        wid: workspaceId,
-                    },
+                    name: name,
+                    wid: workspaceId,
                 },
                 {
                     auth: {
@@ -66,8 +64,8 @@ module.exports = {
                 }
             )
             .then((resp) => {
-                spinner.succeed(`Created project "${resp.data.data.name}" in Toggl.`);
-                return resp.data.data;
+                spinner.succeed(`Created project "${resp.data.name}" in Toggl.`);
+                return resp.data;
             })
             .catch((err) => {
                 if (err.response) {
@@ -77,18 +75,17 @@ module.exports = {
                 throw new Error(`cannot create Toggl project ${name}: ${err}`);
             });
     },
-    addEntry: async function (projectId, start, duration, apiKey) {
+    addEntry: async function (workspaceId, projectId, start, duration, apiKey) {
         return instance
             .post(
-                'time_entries',
+                `workspaces/${workspaceId}/time_entries`,
                 {
-                    time_entry: {
-                        description: 'Coding',
-                        duration: duration,
-                        start: start,
-                        pid: projectId,
-                        created_with: 'wakatime-to-toggl',
-                    },
+                    description: 'Coding',
+                    duration: duration,
+                    start: start,
+                    pid: projectId,
+                    created_with: 'wakatime-to-toggl',
+                    wid: workspaceId,
                 },
                 {
                     auth: {
@@ -97,7 +94,7 @@ module.exports = {
                     },
                 }
             )
-            .then((resp) => resp.data.data)
+            .then((resp) => resp.data)
             .catch((err) => {
                 if (err.response) {
                     console.error(err.response.data);
