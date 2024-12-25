@@ -55,6 +55,7 @@ module.exports = {
                 {
                     name: name,
                     wid: workspaceId,
+                    active: true,
                 },
                 {
                     auth: {
